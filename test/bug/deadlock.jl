@@ -1,15 +1,15 @@
 
 using AutoHashEquals
 
-@compat abstract type Graph end
+abstract type Graph end
 
-@auto_hash_equals type Node<:Graph
+@auto_hash_equals mutable struct Node<:Graph
     label::String
     children::Vector{Graph}
     Node(label, children...) = new(label, Graph[children...])
 end
 
-type Cycle<:Graph
+mutable struct Cycle<:Graph
     node::Nullable{Graph}
     Cycle() = new(Nullable{Graph}())
 end

@@ -14,13 +14,13 @@ using AutoHashEquals
 
 # every matcher has a name field, which by default is the name of the matcher
 # (using @with_names changes this to the variable name - see calc.jl)
-@auto_hash_equals type Case<:Delegate
+@auto_hash_equals mutable struct Case<:Delegate
     name::Symbol
     matcher::Matcher
     Case(matcher) = new(:Case, matcher)
 end
 
-immutable CaseState<:DelegateState
+struct CaseState<:DelegateState
     state::State
 end
 

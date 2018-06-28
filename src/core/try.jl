@@ -79,7 +79,7 @@ end
 
 # the Try() matcher that enables backtracking
 
-@auto_hash_equals type Try<:Delegate
+@auto_hash_equals mutable struct Try<:Delegate
     name::Symbol
     matcher::Matcher
     Try(matcher) = new(:Try, matcher)
@@ -91,25 +91,25 @@ end
 
 execute(k::Config, m::Try, s::Clean, i) = error("use Try only with TrySource")
 
-execute{S<:TrySource}(k::Config{S}, m::Try, s::Clean, i) = execute(k, m, TryState(CLEAN), i)
+execute(k::Config{S}, m::Try, s::Clean, i) where {S<:TrySource} = execute(k, m, TryState(CLEAN), i)
 
-function execute{S<:TrySource}(k::Config{S}, m::Try, s::TryState, i)
+function execute(k::Config{S}, m::Try, s::TryState, i) where S<:TrySource
     k.source.frozen += 1
     Execute(m, s, m.matcher, s.state, i)
 end
 
-function success{S<:TrySource}(k::Config{S}, m::Try, s::TryState, t, i, r::Value)
+function success(k::Config{S}, m::Try, s::TryState, t, i, r::Value) where S<:TrySource
     k.source.frozen -= 1
     Success(TryState(t), i, r)
 end
 
-function failure{S<:TrySource}(k::Config{S}, m::Try, s::TryState)
+function failure(k::Config{S}, m::Try, s::TryState) where S<:TrySource
     k.source.frozen -= 1
     FAILURE
 end
 
 
-function dispatch{S<:TrySource}(k::NoCache{S}, s::Success)
+function dispatch(k::NoCache{S}, s::Success) where S<:TrySource
     (parent, parent_state) = pop!(k.stack)
     expire(k.source, s.iter)
     try
@@ -119,7 +119,7 @@ function dispatch{S<:TrySource}(k::NoCache{S}, s::Success)
     end
 end
 
-function dispatch{S<:TrySource}(k::Cache{S}, s::Success)
+function dispatch(k::Cache{S}, s::Success) where S<:TrySource
     parent, parent_state, key = pop!(k.stack)
     expire(k.source, s.iter)
     try

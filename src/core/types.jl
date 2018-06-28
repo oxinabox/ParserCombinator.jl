@@ -59,9 +59,9 @@ abstract type Config{S,I} end
 
 # defaults for mismatching types and types with no content
 ==(a::Matcher, b::Matcher) = false
-=={T<:Matcher}(a::T, b::T) = true
+==(a::T, b::T) where {T<:Matcher} = true
 ==(a::State, b::State) = false
-=={T<:State}(a::T, b::T) = true
+==(a::T, b::T) where {T<:State} = true
 
 
 # use an array to handle empty values in a natural way

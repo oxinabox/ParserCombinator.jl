@@ -3,7 +3,7 @@
 # transform successes (Empty and Value)
 # function must return a Value instance
 
-@auto_hash_equals type Transform<:Delegate
+@auto_hash_equals mutable struct Transform<:Delegate
     name::Symbol
     matcher::Matcher
     f::Function
@@ -23,7 +23,7 @@ success(k::Config, m::Transform, s, t, i, r::Value) = Success(TransformState(t),
 
 # as above, but function also takes iterator
 
-@auto_hash_equals type ITransform<:Delegate
+@auto_hash_equals mutable struct ITransform<:Delegate
     name::Symbol
     matcher::Matcher
     f::Function

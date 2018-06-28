@@ -57,8 +57,8 @@ Opt!(m::Matcher) = Alt!(m, Epsilon())
 
 
 # repeat via [lo:hi] or [n]
-endof{M<:Matcher}(m::M) = typemax(Int)
-size{M<:Matcher}(m::M, n) = endof(m)
+endof(m::M) where {M<:Matcher} = typemax(Int)
+size(m::M, n) where {M<:Matcher} = endof(m)
 getindex(m::Matcher, r::Int, s::Symbol...) = getindex(m, r:r; s...)
 function getindex(m::Matcher, r::UnitRange, s::Symbol...)
     greedy = true

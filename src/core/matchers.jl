@@ -314,7 +314,7 @@ end
 
 # when first called, create base state and make internal transition
 
-execute{S,I}(k::Config{S,I}, m::Breadth, s::Clean, i::I) = execute(k, m, BreadthYield{I}(i, Entry{I}[Entry{I}(i, CLEAN, Any[])]), i)
+execute(k::Config{S,I}, m::Breadth, s::Clean, i::I) where {S,I} = execute(k, m, BreadthYield{I}(i, Entry{I}[Entry{I}(i, CLEAN, Any[])]), i)
 
 # yield the top state
 

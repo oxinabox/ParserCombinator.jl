@@ -1,7 +1,7 @@
 
 always_print(::Matcher) = false
 
-print_field{N}(m::Matcher, n::Type{Val{N}}) = "$(N)"
+print_field(m::Matcher, n::Type{Val{N}}) where {N} = "$(N)"
 
 print_matcher(m::Matcher) = print_matcher(m, Set{Matcher}())
 
