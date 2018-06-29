@@ -457,7 +457,7 @@ The action of `Appl()` and `|>` is similar, but everything is passed as a
 single argument (a list).
 
 ```julia
-julia> type Node children end
+julia> mutable struct Node children end
 
 julia> parse_one("abc", Appl(Star(p"."), Node))
 1-element Array{Any,1}:

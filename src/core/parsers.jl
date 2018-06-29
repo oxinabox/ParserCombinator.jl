@@ -165,7 +165,7 @@ end
 # these assume that any config construct takes a single source argument
 # plus optional keyword args
 
-function make{S}(config, source::S, matcher; debug=false, kargs...)
+function make(config, source::S, matcher; debug=false, kargs...) where S
     I = typeof(start(source))
     k = config{S,I}(source; debug=debug, kargs...)
     (k, Channel(c -> producer(c, k, matcher; debug=debug)))

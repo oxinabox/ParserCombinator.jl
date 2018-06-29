@@ -153,7 +153,7 @@ end
 # this does nothing except delegate and, by simply "being seen" during
 # disparch above, toggle debug state.
 
-@auto_hash_equals type Trace<:Delegate
+@auto_hash_equals mutable struct Trace<:Delegate
     name::Symbol
     matcher::Matcher
     Trace(matcher) = new(:Trace, matcher)
